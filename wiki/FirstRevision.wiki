@@ -1,4 +1,4 @@
-#summary Details the first check in.
+#summary Describes the contents of the first check in of library.
 
 = Introduction =
 
@@ -11,14 +11,14 @@ This first revision has:
 
 *Application module
 
-  * S4AppUtils - Commonly used iPhone application utilites.
-  * S4FileUtils - Commonly used iPhone file utilities; finds most-used directories and has an NSKeyArchiver utility for storing objects persistently.
+  * S4AppUtils: Commonly used iPhone application utilites.
+  * S4FileUtils: Commonly used iPhone file utilities; finds most-used directories and has an NSKeyArchiver utility for storing objects persistently.
 
 *GeoLocation module
 
-  * S4CoreLocationManager - for now, just a singleton class that handles CoreLocation subleties for you.
+  * S4CoreLocationManager: for now, just a singleton class that handles CoreLocation subleties for you.
 
 *Network module
 
-  * S4HttpConnection - handles the small details of making HTTP connections for you
-  * S4NetUtilities - creates NSURLRequests, properly escapes URL NSStrings, plus more
+  * S4HttpConnection: handles the small details of making HTTP connections for you
+  * S4NetUtilities: creates NSURLRequests, properly escapes URL NSStrings, plus more
