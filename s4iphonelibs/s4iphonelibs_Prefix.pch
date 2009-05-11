@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 's4iphonelibs' target in the 's4iphonelibs' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
