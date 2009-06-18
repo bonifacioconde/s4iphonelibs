@@ -35,6 +35,7 @@
 // ================================== Includes =========================================
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 
@@ -86,8 +87,23 @@ typedef enum
 - (NSString *)productName;
 
 - (void)openApplicationWithUrlStr: (NSString *)urlStr;
+
+- (BOOL)hasMailComposer;
 - (void)sendCCMailWithAddressStr: (NSString *)addressStr cc: (NSString *)ccStr  subject: (NSString *)subjectStr body: (NSString *)bodyStr;
 - (void)sendHtmlCCMailWithAddressStr: (NSString *)addressStr cc: (NSString *)ccStr  subject: (NSString *)subjectStr htmlBody: (NSString *)htmlBodyStr;
+#ifdef __IPHONE_3_0
+- (BOOL)sendComposerMailForController: (id<MFMailComposeViewControllerDelegate>)viewController
+						  toAddresses: (NSArray *)toRecipients
+						  ccAddresses: (NSArray *)ccRecipients
+						 bccAddresses: (NSArray *)bccRecipients
+						  mailBodyStr: (NSString *)emailBody
+							   isHTML: (BOOL)bIsHTML
+					   attachmentData: (NSData *)attachData
+				   attachmentMimeType: (NSString *)attachMimeType
+				   attachmentFileName: (NSString *)attachFileName
+						  mailSubject: (NSString *)subject;
+#endif
+
 - (void)openMapsWithAddressStr: (NSString *)addressStr city: (NSString *)cityStr state: (NSString *)stateStr zip: (NSString *)zipStr;
 - (void)openMapsWithLatitude: (double)dLatitude longitude: (double)dLongitude;
 - (void)openMapsAtStartingAddress: (NSString *)srcAddressStr
