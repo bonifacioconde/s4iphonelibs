@@ -35,6 +35,12 @@
 // ================================== Includes =========================================
 
 //#import "UIDevice-hardware.h"
+
+#ifdef __IPHONE_3_0
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+#endif
+
 #import "S4AppUtils.h"
 #import "S4NetUtilities.h"
 #include <sys/types.h>
@@ -251,6 +257,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 @implementation S4AppUtils
 
 
+///////////////////////////////////// START SINGLETON METHODS /////////////////////////////////////
+
 //============================================================================
 //	S4AppUtils :: getInstance
 //============================================================================
@@ -333,7 +341,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////// GENERIC METHODS /////////////////////////////////////
+
 //============================================================================
 //	S4AppUtils :: productName
 //============================================================================
@@ -364,6 +373,31 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 			[[UIApplication sharedApplication] openURL: url];
 		}
 	}
+}
+
+
+///////////////////////////////////// MAIL METHODS /////////////////////////////////////
+
+//============================================================================
+//	S4AppUtils :: hasMailComposer
+//============================================================================
+- (BOOL)hasMailComposer
+{
+	Class			mailComposerClass;
+	BOOL			bResult = NO;
+
+	mailComposerClass = (NSClassFromString(@"MFMailComposeViewController"));
+	if (nil != mailComposerClass)
+	{
+#ifdef __IPHONE_3_0
+		// We must always check whether the current device is configured for sending emails
+		if ([MFMailComposeViewController canSendMail])
+		{
+			bResult = YES;
+		}
+#endif
+	}
+	return (bResult);
 }
 
 
@@ -440,6 +474,62 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 }
 
 
+#ifdef __IPHONE_3_0
+//============================================================================
+//	S4AppUtils :: sendComposerMailForController
+//	Displays an email composition interface inside the application. Populates all the Mail fields
+//============================================================================
+- (BOOL)sendComposerMailForController: (id<MFMailComposeViewControllerDelegate>)viewController
+						  toAddresses: (NSArray *)toRecipients
+						  ccAddresses: (NSArray *)ccRecipients
+						 bccAddresses: (NSArray *)bccRecipients
+						  mailBodyStr: (NSString *)emailBody
+							   isHTML: (BOOL)bIsHTML
+					   attachmentData: (NSData *)attachData
+				   attachmentMimeType: (NSString *)attachMimeType
+				   attachmentFileName: (NSString *)attachFileName
+						  mailSubject: (NSString *)subject
+{
+	MFMailComposeViewController			*mailComposer;
+	BOOL								bResult = NO;
+
+	if (([self hasMailComposer]) && (nil != viewController))
+	{
+		mailComposer = [[MFMailComposeViewController alloc] init];
+		if (nil != mailComposer)
+		{
+			mailComposer.mailComposeDelegate = viewController;
+
+			// set the attachment
+			if ((nil != attachData) && (nil != attachMimeType) && (nil != attachFileName))
+			{
+				[mailComposer addAttachmentData: attachData mimeType: attachMimeType fileName: attachFileName];
+			}
+
+			// set recipients
+			[mailComposer setToRecipients: toRecipients];
+			[mailComposer setCcRecipients: ccRecipients];	
+			[mailComposer setBccRecipients: bccRecipients];
+
+			// set the email body text
+			[mailComposer setMessageBody: emailBody isHTML: bIsHTML];
+
+			// set subject
+			[mailComposer setSubject: subject];
+
+			// present the modal mail composer sheet
+			[viewController presentModalViewController: mailComposer animated: YES];
+			[mailComposer release];
+			bResult = YES;
+		}
+	}
+	return (bResult);
+}
+#endif
+
+
+///////////////////////////////////// MAPS METHODS /////////////////////////////////////
+
 //============================================================================
 //	S4AppUtils :: openMapsWithAddressStr
 //============================================================================
@@ -498,6 +588,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 }
 
 
+///////////////////////////////////// PHONE METHODS /////////////////////////////////////
+
 //============================================================================
 //	S4AppUtils :: placeCallWithPhoneNumStr
 //============================================================================
@@ -518,6 +610,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 	}
 }
 
+
+///////////////////////////////////// TEXT METHODS /////////////////////////////////////
 
 //============================================================================
 //	S4AppUtils :: sendSmsTextMsgWithPhoneNumStr
@@ -540,6 +634,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 }
 
 
+///////////////////////////////////// LOCALE METHODS /////////////////////////////////////
+
 //============================================================================
 //	S4AppUtils :: isLocaleMetric
 //============================================================================
@@ -555,7 +651,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: isoCountry
 //============================================================================
 - (NSString *)isoCountry
 {
@@ -564,7 +660,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: isoLanguage
 //============================================================================
 - (NSString *)isoLanguage
 {
@@ -573,7 +669,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: displayCountry
 //============================================================================
 - (NSString *)displayCountry
 {
@@ -583,7 +679,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: displayLanguage
 //============================================================================
 - (NSString *)displayLanguage: (NSString *)isoLanguage
 {
@@ -592,7 +688,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: displayLanguage
 //============================================================================
 - (NSString *)displayLanguage
 {
@@ -602,16 +698,16 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: englishLocale
 //============================================================================
 - (NSLocale *)englishLocale
 {
-	return [[[NSLocale alloc] initWithLocaleIdentifier:@"en"] autorelease];
+	return [[[NSLocale alloc] initWithLocaleIdentifier: @"en"] autorelease];
 }
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: englishCountry
 //============================================================================
 - (NSString *)englishCountry
 {
@@ -621,7 +717,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: isLocaleMetric
+//	S4AppUtils :: englishLanguage
 //============================================================================
 - (NSString *)englishLanguage
 {
@@ -629,6 +725,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 	return [[self englishLocale] displayNameForKey:NSLocaleLanguageCode value:isoLanguage];
 }
 
+
+///////////////////////////////////// DEVICE METHODS /////////////////////////////////////
 
 //============================================================================
 //	S4AppUtils :: deviceType
