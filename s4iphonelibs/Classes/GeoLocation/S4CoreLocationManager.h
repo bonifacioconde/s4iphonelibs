@@ -35,6 +35,11 @@
 // ================================== Includes =========================================
 
 #import <Foundation/Foundation.h>
+
+#ifdef __IPHONE_3_0
+#import <CoreLocation/CLErrorDomain.h>
+#endif
+
 #import <CoreLocation/CLError.h>
 #import <CoreLocation/CLLocation.h>
 #import <CoreLocation/CLLocationManager.h>
