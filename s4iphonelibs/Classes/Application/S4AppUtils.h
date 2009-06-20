@@ -88,11 +88,10 @@ typedef enum
 
 - (void)openApplicationWithUrlStr: (NSString *)urlStr;
 
-- (BOOL)hasMailComposer;
+- (BOOL)canUseMailComposer;
 - (void)sendCCMailWithAddressStr: (NSString *)addressStr cc: (NSString *)ccStr  subject: (NSString *)subjectStr body: (NSString *)bodyStr;
 - (void)sendHtmlCCMailWithAddressStr: (NSString *)addressStr cc: (NSString *)ccStr  subject: (NSString *)subjectStr htmlBody: (NSString *)htmlBodyStr;
-#ifdef __IPHONE_3_0
-- (BOOL)sendComposerMailForController: (id<MFMailComposeViewControllerDelegate>)viewController
+- (BOOL)sendComposerMailForController: (UIViewController *)viewController
 						  toAddresses: (NSArray *)toRecipients
 						  ccAddresses: (NSArray *)ccRecipients
 						 bccAddresses: (NSArray *)bccRecipients
@@ -102,7 +101,6 @@ typedef enum
 				   attachmentMimeType: (NSString *)attachMimeType
 				   attachmentFileName: (NSString *)attachFileName
 						  mailSubject: (NSString *)subject;
-#endif
 
 - (void)openMapsWithAddressStr: (NSString *)addressStr city: (NSString *)cityStr state: (NSString *)stateStr zip: (NSString *)zipStr;
 - (void)openMapsWithLatitude: (double)dLatitude longitude: (double)dLongitude;
