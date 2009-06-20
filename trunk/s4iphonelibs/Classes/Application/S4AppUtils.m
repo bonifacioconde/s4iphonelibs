@@ -379,22 +379,19 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 ///////////////////////////////////// MAIL METHODS /////////////////////////////////////
 
 //============================================================================
-//	S4AppUtils :: hasMailComposer
+//	S4AppUtils :: canUseMailComposer
 //============================================================================
-- (BOOL)hasMailComposer
+- (BOOL)canUseMailComposer
 {
 	Class			mailComposerClass;
 	BOOL			bResult = NO;
 
-	mailComposerClass = (NSClassFromString(@"MFMailComposeViewController"));
+	mailComposerClass = NSClassFromString(@"MFMailComposeViewController");
 	if (nil != mailComposerClass)
 	{
 #ifdef __IPHONE_3_0
 		// We must always check whether the current device is configured for sending emails
-		if ([MFMailComposeViewController canSendMail])
-		{
-			bResult = YES;
-		}
+		bResult = [MFMailComposeViewController canSendMail];
 #endif
 	}
 	return (bResult);
@@ -474,12 +471,11 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 }
 
 
-#ifdef __IPHONE_3_0
 //============================================================================
 //	S4AppUtils :: sendComposerMailForController
 //	Displays an email composition interface inside the application. Populates all the Mail fields
 //============================================================================
-- (BOOL)sendComposerMailForController: (id<MFMailComposeViewControllerDelegate>)viewController
+- (BOOL)sendComposerMailForController: (UIViewController *)viewController
 						  toAddresses: (NSArray *)toRecipients
 						  ccAddresses: (NSArray *)ccRecipients
 						 bccAddresses: (NSArray *)bccRecipients
@@ -490,15 +486,21 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 				   attachmentFileName: (NSString *)attachFileName
 						  mailSubject: (NSString *)subject
 {
-	MFMailComposeViewController			*mailComposer;
 	BOOL								bResult = NO;
 
-	if (([self hasMailComposer]) && (nil != viewController))
+	// validate that we are OS 3+ && MailComposer can send mail && the UIViewController is not nil && it is a MFMailComposeViewControllerDelegate
+	if (([self canUseMailComposer]) &&
+		(nil != viewController) && 
+		([viewController respondsToSelector: @selector(mailComposeController:didFinishWithResult:error:)]))
 	{
+#ifdef __IPHONE_3_0
+		// we are on the 3.0 OS and MailComposer is able to send mail
+		MFMailComposeViewController			*mailComposer;
+
 		mailComposer = [[MFMailComposeViewController alloc] init];
 		if (nil != mailComposer)
 		{
-			mailComposer.mailComposeDelegate = viewController;
+			mailComposer.mailComposeDelegate = (<MFMailComposeViewControllerDelegate>)viewController;
 
 			// set the attachment
 			if ((nil != attachData) && (nil != attachMimeType) && (nil != attachFileName))
@@ -522,10 +524,11 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 			[mailComposer release];
 			bResult = YES;
 		}
+
+#endif
 	}
 	return (bResult);
 }
-#endif
 
 
 ///////////////////////////////////// MAPS METHODS /////////////////////////////////////

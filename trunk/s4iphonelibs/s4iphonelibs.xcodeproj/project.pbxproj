@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		224607050FEC5E6400D33213 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224607040FEC5E6400D33213 /* MessageUI.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		228F57010FB8A34B002D0FED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228F57000FB8A34B002D0FED /* CoreLocation.framework */; };
 		228F57120FB8A3DC002D0FED /* S4AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F570F0FB8A3DC002D0FED /* S4AppUtils.m */; };
 		228F57130FB8A3DC002D0FED /* S4FileUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F57110FB8A3DC002D0FED /* S4FileUtilities.m */; };
@@ -30,6 +31,7 @@
 		1D3623250D0F684500981E51 /* s4iphonelibsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = s4iphonelibsAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* s4iphonelibs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = s4iphonelibs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		224607040FEC5E6400D33213 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		228F57000FB8A34B002D0FED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		228F570E0FB8A3DC002D0FED /* S4AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S4AppUtils.h; path = Application/S4AppUtils.h; sourceTree = "<group>"; };
 		228F570F0FB8A3DC002D0FED /* S4AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S4AppUtils.m; path = Application/S4AppUtils.m; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				228F57010FB8A34B002D0FED /* CoreLocation.framework in Frameworks */,
 				228F57230FB8A484002D0FED /* SystemConfiguration.framework in Frameworks */,
+				224607050FEC5E6400D33213 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +158,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				224607040FEC5E6400D33213 /* MessageUI.framework */,
 				228F57220FB8A484002D0FED /* SystemConfiguration.framework */,
 				228F57000FB8A34B002D0FED /* CoreLocation.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -273,9 +277,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};
@@ -287,8 +292,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};
