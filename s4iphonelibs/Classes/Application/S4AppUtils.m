@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4AppUtils.m
- * Module:		
+ * Module:		Application
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -35,28 +35,25 @@
 // ================================== Includes =========================================
 
 //#import "UIDevice-hardware.h"
-
-#ifdef __IPHONE_3_0
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#endif
-
 #import "S4AppUtils.h"
 #import "S4NetUtilities.h"
+#import "S4CommonDefines.h"
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
 
-// ================================== Defines ==========================================
+// =================================== Defines =========================================
 
 #define MIN_PHONE_NUM_LEN				8		// "555-5555"
 
 
-// ================================== Typedefs ==========================================
+// ================================== Typedefs =========================================
 
 
 
-// ================================== Globals ==========================================
+// =================================== Globals =========================================
 
 // holds the singleton
 static S4AppUtils						*g_clsInstance = nil;
@@ -142,7 +139,15 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 
-// =========================== Begin Class S4AppUtils (PrivateImpl) ===========================
+// ============================= Forward Declarations ==================================
+
+
+
+// ================================== Inlines ==========================================
+
+
+
+// =========================== Begin Class S4AppUtils (PrivateImpl) ==========================
 
 @interface S4AppUtils (PrivateImpl)
 
@@ -252,7 +257,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 
-// =========================== Begin Class S4AppUtils ===========================
+
+// ============================== Begin Class S4AppUtils =============================
 
 @implementation S4AppUtils
 
@@ -341,7 +347,7 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 }
 
 
-///////////////////////////////////// GENERIC METHODS /////////////////////////////////////
+///////////////////////////////////// INSTANCE METHODS /////////////////////////////////////
 
 //============================================================================
 //	S4AppUtils :: productName
@@ -358,13 +364,13 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 
 
 //============================================================================
-//	S4AppUtils :: openApplicationWithUrlStr
+//	S4AppUtils :: openApplicationWithUrlStr:
 //============================================================================
 - (void)openApplicationWithUrlStr: (NSString *)urlStr
 {
 	NSURL						*url;
 
-	if ((nil != urlStr) && ([urlStr length] > 0))
+	if (STR_NOT_EMPTY(urlStr))
 	{
 		// create a properly escaped NSURL from the string params
 		url = [S4NetUtilities createNSUrlForPathStr: urlStr baseStr: nil];
@@ -389,10 +395,8 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 	mailComposerClass = NSClassFromString(@"MFMailComposeViewController");
 	if (nil != mailComposerClass)
 	{
-#ifdef __IPHONE_3_0
 		// We must always check whether the current device is configured for sending emails
 		bResult = [MFMailComposeViewController canSendMail];
-#endif
 	}
 	return (bResult);
 }
@@ -493,7 +497,6 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 		(nil != viewController) && 
 		([viewController respondsToSelector: @selector(mailComposeController:didFinishWithResult:error:)]))
 	{
-#ifdef __IPHONE_3_0
 		// we are on the 3.0 OS and MailComposer is able to send mail
 		MFMailComposeViewController			*mailComposer;
 
@@ -524,8 +527,6 @@ static NSString							*kIPOD_UNKNOWN_NAME			= @"Unknown iPod";
 			[mailComposer release];
 			bResult = YES;
 		}
-
-#endif
 	}
 	return (bResult);
 }

@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4NetUtilities.h
- * Module:		
+ * Module:		Network
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -36,6 +36,9 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SCNetworkReachability.h>
+
+
+// =================================== Defines =========================================
 
 
 
@@ -58,14 +61,20 @@ typedef enum
 
 
 
+// ============================= Forward Declarations ==================================
 
-// ===========================================================================
+
+
+// ================================== Protocols ========================================
+
+
+
+// ============================ Class S4NetUtilities ===================================
 
 @interface S4NetUtilities : NSObject
 {
 
 }
-
 
 + (NSURL *)createNSUrlForPathStr: (NSString *)path baseStr: (NSString *)base;
 + (NSURLRequest *)createRequestForURL: (NSURL *)url useCache: (BOOL)bUseCache timeoutInterval: (NSTimeInterval)timeoutInSec bodyData: (NSData *)data handleCookies: (BOOL)bHandleCookies;

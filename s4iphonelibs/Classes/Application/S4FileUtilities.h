@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4FileUtilities.h
- * Module:		
+ * Module:		Application
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -35,6 +35,10 @@
 // ================================== Includes =========================================
 
 #import <Foundation/Foundation.h>
+#import <CoreFoundation/CoreFoundation.h>
+
+
+// =================================== Defines =========================================
 
 
 
@@ -42,11 +46,19 @@
 
 
 
-// ================================== Globals =========================================
+// =================================== Globals =========================================
 
 
 
-// ===========================================================================
+// ============================= Forward Declarations ==================================
+
+
+
+// ================================== Protocols ========================================
+
+
+
+// ============================ Class S4FileUtilities ==================================
 
 @interface S4FileUtilities : NSObject
 {
@@ -83,9 +95,15 @@
 + (BOOL)fileExists: (NSString *)path;
 + (BOOL)moveDiskItemFromPath: (NSString *)srcPath toPath: (NSString *)dstPath;
 + (NSString *)cleanupFileName: (NSString *)name;
++ (void)deleteDiskItemAtPath: (NSString *)itemPath;
++ (void)writeData: (NSData *)data toFileAtPath: (NSString *)file;
++ (NSData *)readDataFromFileAtPath: (NSString *)file;
+
+// PList file operations
 + (void)writeObject: (id)object toPropListFile: (NSString *)file;
 + (id)readObjectFromPropListFile: (NSString *)file;
-+ (void)writeDataToFileAtPath: (NSData *)data toFile: (NSString *)file;
-+ (NSData *)readDataFromFileAtPath: (NSString *)file;
++ (NSDictionary *)readPlistFromBundleFile: (NSString *)fileName;
++ (CFPropertyListRef)readPlistFromCFURL: (CFURLRef)fileURL;
++ (BOOL)writePlist: (CFPropertyListRef)propertyList toCFURL: (CFURLRef)fileURL;
 
 @end

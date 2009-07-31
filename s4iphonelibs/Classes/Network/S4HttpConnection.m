@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4HttpConnection.m
- * Module:		
+ * Module:		Network
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -37,11 +37,11 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "S4HttpConnection.h"
 #import "S4NetUtilities.h"
+#import "S4CommonDefines.h"
 
 
 // ================================== Defines ==========================================
 
-//#define DEFAULT_TIMEOUT_INTERVAL		(NSTimeInterval)60.0
 
 
 // ================================== Typedefs ==========================================
@@ -52,8 +52,15 @@
 
 
 
+// ============================= Forward Declarations ==================================
 
-// =========================== Begin Class S4HttpConnection (PrivateImpl) ===========================
+
+
+// ================================== Inlines ==========================================
+
+
+
+// ==================== Begin Class S4HttpConnection (PrivateImpl) =====================
 
 @interface S4HttpConnection (PrivateImpl)
 
@@ -86,7 +93,8 @@
 
 
 
-// ================================== Begin Class S4HttpConnection ==================================
+
+// ====================== Begin Class S4HttpConnection =======================
 
 @implementation S4HttpConnection
 
