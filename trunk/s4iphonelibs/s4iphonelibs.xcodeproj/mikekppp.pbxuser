@@ -40,6 +40,42 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	228F570E0FB8A3DC002D0FED /* S4AppUtils.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {702, 1932}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1035}";
+			sepNavWindowFrame = "{{15, 21}, {1133, 752}}";
+		};
+	};
+	228F570F0FB8A3DC002D0FED /* S4AppUtils.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1086, 12362}}";
+			sepNavSelRange = "{18727, 0}";
+			sepNavVisRange = "{17379, 1584}";
+			sepNavWindowFrame = "{{38, 0}, {1133, 752}}";
+		};
+	};
+	22C120151023BC4A009C7572 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 228F570E0FB8A3DC002D0FED /* S4AppUtils.h */;
+		name = "S4AppUtils.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1035;
+		vrLoc = 0;
+	};
+	22C120161023BC4A009C7572 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 228F570E0FB8A3DC002D0FED /* S4AppUtils.h */;
+		name = "S4AppUtils.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1035;
+		vrLoc = 0;
+	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 228F56F40FB8A318002D0FED /* s4iphonelibs */;
@@ -97,8 +133,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 267148829;
-			PBXWorkspaceStateSaveDate = 267148829;
+			PBXPerProjectTemplateStateSaveDate = 270777030;
+			PBXWorkspaceStateSaveDate = 270777030;
+		};
+		perUserProjectItems = {
+			22C120151023BC4A009C7572 /* PBXTextBookmark */ = 22C120151023BC4A009C7572 /* PBXTextBookmark */;
+			22C120161023BC4A009C7572 /* PBXTextBookmark */ = 22C120161023BC4A009C7572 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 228F56FD0FB8A338002D0FED /* Source Control */;
 		userBuildSettings = {

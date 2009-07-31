@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4FileUtilities.m
- * Module:		
+ * Module:		Application
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -34,19 +34,19 @@
 
 // ================================== Includes =========================================
 
-#import <CoreFoundation/CoreFoundation.h>
 #import "S4FileUtilities.h"
+#import "S4CommonDefines.h"
 
 
-// ================================== Defines ==========================================
-
-
-
-// ================================== Typedefs ==========================================
+// =================================== Defines =========================================
 
 
 
-// ================================== Globals ==========================================
+// ================================== Typedefs =========================================
+
+
+
+// =================================== Globals =========================================
 
 static NSString							*kTemporaryDirctory = nil;
 static NSString							*kDocumentsDirectory = nil;
@@ -54,8 +54,15 @@ static NSString							*kCachesDirctory = nil;
 static NSString							*kApplSupportDirectory = nil;
 
 
+// ============================= Forward Declarations ==================================
 
-// =========================== Begin Class S4FileUtilities (PrivateImpl) ===========================
+
+
+// ================================== Inlines ==========================================
+
+
+
+// ===================== Begin Class S4FileUtilities (PrivateImpl) =====================
 
 @interface S4FileUtilities (PrivateImpl)
 
@@ -94,7 +101,8 @@ static NSString							*kApplSupportDirectory = nil;
 
 
 
-// ================================== Begin Class S4FileUtilities ==================================
+
+// ======================= Begin Class S4FileUtilities =======================
 
 @implementation S4FileUtilities
 
@@ -226,7 +234,7 @@ static NSString							*kApplSupportDirectory = nil;
 {
 	NSString					*archivePath;
 	BOOL						bResult = NO;
-	
+
 	if ((nil != path) && ([path length] > 0))
 	{
 		archivePath = [[S4FileUtilities documentsDirectory] stringByAppendingPathComponent: path];
@@ -236,121 +244,180 @@ static NSString							*kApplSupportDirectory = nil;
 }
 
 
-
+//============================================================================
+//	S4FileUtilities : uniqueDirectory:create:
+//============================================================================
 + (NSString *)uniqueDirectory: (NSString *)parentDirectory create: (BOOL)create
 {
-    NSString* finalDir = nil;
-	
-	do {
+	NSString* finalDir = nil;
+
+	do
+	{
 		NSString* random = [self randomString];
-		finalDir = [parentDirectory stringByAppendingPathComponent:random];
-	} while ([[NSFileManager defaultManager] fileExistsAtPath:finalDir]);
-	
-	if (create) {
-		[S4FileUtilities createDirectory:finalDir];
-	}	
-    return finalDir;
+		finalDir = [parentDirectory stringByAppendingPathComponent: random];
+	}
+	while ([[NSFileManager defaultManager] fileExistsAtPath: finalDir]);
+
+	if (create)
+	{
+		[S4FileUtilities createDirectory: finalDir];
+	}
+	return (finalDir);
 }
 
 
+//============================================================================
+//	S4FileUtilities : uniqueTemporaryDirectory
+//============================================================================
 + (NSString *)uniqueTemporaryDirectory
 {
-    return [self uniqueDirectory:[self tempDirectory] create:YES];
+	return [self uniqueDirectory: [self tempDirectory] create: YES];
 }
 
 
-
-+ (void) createDirectory:(NSString*) directory {
-	
-    {
-        if (![[NSFileManager defaultManager] fileExistsAtPath:directory]) {
-            [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL];
-        }
-    }
-	
+//============================================================================
+//	S4FileUtilities : createDirectory
+//============================================================================
++ (void)createDirectory: (NSString *)directory
+{
+	if (![[NSFileManager defaultManager] fileExistsAtPath: directory])
+	{
+		[[NSFileManager defaultManager] createDirectoryAtPath: directory withIntermediateDirectories: YES attributes: nil error: NULL];
+	}
 }
 
 
-+ (NSDate*) modificationDate:(NSString*) file {
-    NSDate* result;
-	
-    {
-        result = [[[NSFileManager defaultManager] attributesOfItemAtPath:file
-                                                                   error:NULL] objectForKey:NSFileModificationDate];
-    }
-	
-    return result;
+//============================================================================
+//	S4FileUtilities : modificationDate
+//============================================================================
++ (NSDate *)modificationDate: (NSString *)file
+{
+	NSDate				*result = nil;
+
+	result = [[[NSFileManager defaultManager] attributesOfItemAtPath: file error: NULL] objectForKey: NSFileModificationDate];
+	return (result);
 }
 
 
-+ (unsigned long long) size:(NSString*) file {
-    unsigned long long result;
-	
-    {
-        NSNumber* number = [[[NSFileManager defaultManager] attributesOfItemAtPath:file
-                                                                             error:NULL] objectForKey:NSFileSize];
-        result = [number unsignedLongLongValue];
-    }
-	
-    return result;
+//============================================================================
+//	S4FileUtilities : size
+//============================================================================
++ (unsigned long long)size: (NSString *)file
+{
+	NSNumber					*number;
+
+	number = [[[NSFileManager defaultManager] attributesOfItemAtPath: file error: NULL] objectForKey: NSFileSize];
+	return ([number unsignedLongLongValue]);
 }
 
 
-+ (NSDictionary*) attributesOfItemAtPath:(NSString*) path {
-    NSDictionary* result;
-	
-    {
-        result = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL];
-    }
-	
-    return result;
+//============================================================================
+//	S4FileUtilities : attributesOfItemAtPath
+//============================================================================
++ (NSDictionary *)attributesOfItemAtPath: (NSString *)path
+{
+	return ([[NSFileManager defaultManager] attributesOfItemAtPath: path error: NULL]);
 }
 
 
-+ (NSArray*) directoryContentsNames:(NSString*) directory {
-    NSArray* result;
-	
-    {
-        result = [[NSFileManager defaultManager] directoryContentsAtPath:directory];
-    }
-	
-    return result;
+//============================================================================
+//	S4FileUtilities : directoryContentsNames
+//============================================================================
++ (NSArray *)directoryContentsNames: (NSString *)directory
+{
+	return ([[NSFileManager defaultManager] directoryContentsAtPath: directory]);
 }
 
 
-+ (NSArray*) directoryContentsPaths:(NSString*) directory {
-    NSMutableArray* result = [NSMutableArray array];
-    {
-        NSArray* names = [[NSFileManager defaultManager] directoryContentsAtPath:directory];
-        for (NSString* name in names) {
-            [result addObject:[directory stringByAppendingPathComponent:name]];
-        }
-    }
-    return result;
+//============================================================================
+//	S4FileUtilities : directoryContentsPaths
+//============================================================================
++ (NSArray *)directoryContentsPaths: (NSString *)directory
+{
+	NSArray						*names;
+	NSMutableArray				*result;
+
+	result = [NSMutableArray array];
+	names = [[NSFileManager defaultManager] directoryContentsAtPath: directory];
+	for (NSString *name in names)
+	{
+		[result addObject: [directory stringByAppendingPathComponent: name]];
+	}
+	return (result);
 }
 
 
-+ (BOOL) fileExists:(NSString*) path {
-    BOOL result;
-    {
-        result = [[NSFileManager defaultManager] fileExistsAtPath:path];
-    }
-    return result;
+//============================================================================
+//	S4FileUtilities : fileExists
+//============================================================================
++ (BOOL)fileExists: (NSString *)path
+{
+	return ([[NSFileManager defaultManager] fileExistsAtPath: path]);
 }
 
 
-
+//============================================================================
+//	S4FileUtilities : moveDiskItemFromPath:toPath:
+//============================================================================
 + (BOOL)moveDiskItemFromPath: (NSString *)srcPath toPath: (NSString *)dstPath
 {
 	return ([[NSFileManager defaultManager] moveItemAtPath: srcPath toPath: dstPath error: NULL]);
 }
 
 
-
+//============================================================================
+//	S4FileUtilities : cleanupFileName
+//============================================================================
 + (NSString *)cleanupFileName: (NSString *)name
 {
     return [[name stringByReplacingOccurrencesOfString: @"/" withString: @"_"] stringByReplacingOccurrencesOfString: @":" withString: @"_"];
 }
+
+
+//============================================================================
+//	S4FileUtilities : deleteDiskItemAtPath
+//============================================================================
++ (void)deleteDiskItemAtPath: (NSString *)itemPath
+{
+	[[NSFileManager defaultManager] removeItemAtPath: itemPath error: NULL];
+}
+
+
+//============================================================================
+//	S4FileUtilities : writeData:toFileAtPath:
+//============================================================================
++ (void)writeData: (NSData *)data toFileAtPath: (NSString *)file
+{
+	[data writeToFile: file atomically: YES];
+}
+
+
+//============================================================================
+//	S4FileUtilities : readDataFromFileAtPath
+//============================================================================
++ (NSData *)readDataFromFileAtPath: (NSString *)file
+{
+	NSData			*dataResult = nil;
+
+    if (IS_NOT_NULL(file))
+	{
+        dataResult = [NSData dataWithContentsOfFile: file];
+    }
+    return (dataResult);
+}
+
+
+//============================================================================
+//	S4FileUtilities : isDirectoryAtPath
+//============================================================================
++ (BOOL)isDirectoryAtPath: (NSString *)path
+{
+	BOOL						result;
+
+	[[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &result];
+	return (result);
+}
+
 
 
 + (void)writeObject: (id)object toPropListFile: (NSString *)file
@@ -365,6 +432,7 @@ static NSString							*kApplSupportDirectory = nil;
 		[[NSFileManager defaultManager] removeItemAtPath:file error:NULL];
 	}
 }
+
 
 
 + (id)readObjectFromPropListFile: (NSString *)file
@@ -387,33 +455,87 @@ static NSString							*kApplSupportDirectory = nil;
 }
 
 
-+ (void)writeDataToFileAtPath: (NSData *)data toFile: (NSString *)file
+//============================================================================
+//	S4FileUtilities : readPlistFromBundleFile
+//============================================================================
++ (NSDictionary *)readPlistFromBundleFile: (NSString *)fileName
 {
-	[data writeToFile: file atomically: YES];
+	NSPropertyListFormat			format;
+	NSString						*errorDesc = nil;
+	NSString						*plistPath;
+	NSData							*plistXML;
+	NSDictionary					*dictResult = nil;
+
+	if (IS_NOT_NULL(fileName))
+	{
+		plistPath = [[NSBundle mainBundle] pathForResource: fileName ofType: @"plist"];
+		plistXML = [[NSFileManager defaultManager] contentsAtPath: plistPath];
+		dictResult = (NSDictionary *)[NSPropertyListSerialization propertyListFromData: plistXML
+																	  mutabilityOption: NSPropertyListMutableContainersAndLeaves
+																				format: &format
+																	  errorDescription: &errorDesc];
+
+		if (nil != errorDesc)
+		{
+			NSLog(errorDesc);
+			[errorDesc release];
+		}
+	}
+	return (dictResult);
+}	
+
+
+//============================================================================
+//	S4FileUtilities : readPlistFromCFURL
+//============================================================================
++ (CFPropertyListRef)readPlistFromCFURL: (CFURLRef)fileURL
+{
+	CFStringRef						errorString;
+	CFDataRef						resourceData;
+	Boolean							status;
+	SInt32							errorCode;
+	CFPropertyListRef				propertyList = NULL;
+
+	// Read the XML file.
+	status = CFURLCreateDataAndPropertiesFromResource(kCFAllocatorDefault,
+													  fileURL,
+													  &resourceData,            // place to put file data
+													  NULL,
+													  NULL,
+													  &errorCode);
+
+	// Reconstitute the dictionary using the XML data.
+	propertyList = CFPropertyListCreateFromXMLData(kCFAllocatorDefault, resourceData, kCFPropertyListImmutable, &errorString);
+
+	if (resourceData)
+	{
+		CFRelease(resourceData);
+	}
+	else
+	{
+		CFRelease(errorString);
+	}
+	return (propertyList);
 }
 
 
-+ (NSData *)readDataFromFileAtPath: (NSString *)file
+//============================================================================
+//	S4FileUtilities : writePlist:toCFURL: 
+//============================================================================
++ (BOOL)writePlist: (CFPropertyListRef)propertyList toCFURL: (CFURLRef)fileURL
 {
-    if (file == nil) {
-        return nil;
-    }
-	
-    NSData* result = nil;
-    {
-        result = [NSData dataWithContentsOfFile:file];
-    }
-    return result;
-}
+	CFDataRef					xmlData;
+	Boolean						status;
+	SInt32						errorCode;
+	BOOL						bResult = NO;
 
+	// Convert the property list into XML data.
+	xmlData = CFPropertyListCreateXMLData(kCFAllocatorDefault, propertyList);
 
-+ (BOOL)isDirectoryAtPath: (NSString *)path
-{
-    BOOL result;
-	
-	[[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&result];
-	
-    return result;
+	// Write the XML data to the file.
+	status = CFURLWriteDataAndPropertiesToResource(fileURL, xmlData, NULL, &errorCode);
+	CFRelease(xmlData);
+	return (bResult);
 }
 
 @end

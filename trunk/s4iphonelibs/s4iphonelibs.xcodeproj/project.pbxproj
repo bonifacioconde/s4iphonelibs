@@ -19,6 +19,7 @@
 		228F571D0FB8A41E002D0FED /* S4HttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F571A0FB8A41E002D0FED /* S4HttpConnection.m */; };
 		228F571E0FB8A41E002D0FED /* S4NetUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F571C0FB8A41E002D0FED /* S4NetUtilities.m */; };
 		228F57230FB8A484002D0FED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228F57220FB8A484002D0FED /* SystemConfiguration.framework */; };
+		22C1200C1023BBBF009C7572 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1200B1023BBBF009C7572 /* MapKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* RootViewController.xib */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
@@ -44,6 +45,8 @@
 		228F571B0FB8A41E002D0FED /* S4NetUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S4NetUtilities.h; path = Network/S4NetUtilities.h; sourceTree = "<group>"; };
 		228F571C0FB8A41E002D0FED /* S4NetUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S4NetUtilities.m; path = Network/S4NetUtilities.m; sourceTree = "<group>"; };
 		228F57220FB8A484002D0FED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		22C11FFB1023BAE6009C7572 /* S4CommonDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S4CommonDefines.h; path = Includes/S4CommonDefines.h; sourceTree = "<group>"; };
+		22C1200B1023BBBF009C7572 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2899E55F0DE3E45000AC0155 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		28A0AAE50D9B0CCF005BE974 /* s4iphonelibs_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = s4iphonelibs_Prefix.pch; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 				228F57010FB8A34B002D0FED /* CoreLocation.framework in Frameworks */,
 				228F57230FB8A484002D0FED /* SystemConfiguration.framework in Frameworks */,
 				224607050FEC5E6400D33213 /* MessageUI.framework in Frameworks */,
+				22C1200C1023BBBF009C7572 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,14 +128,24 @@
 			name = Network;
 			sourceTree = "<group>";
 		};
+		22C11FFA1023BACF009C7572 /* Includes */ = {
+			isa = PBXGroup;
+			children = (
+				22C11FFB1023BAE6009C7572 /* S4CommonDefines.h */,
+			);
+			name = Includes;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
+				22C11FFA1023BACF009C7572 /* Includes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				22C1200B1023BBBF009C7572 /* MapKit.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -277,7 +291,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
@@ -292,7 +306,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
 			};

@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4HttpConnection.h
- * Module:		
+ * Module:		Network
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -35,6 +35,9 @@
 // ================================== Includes =========================================
 
 #import <Foundation/Foundation.h>
+
+
+// =================================== Defines =========================================
 
 
 
@@ -51,7 +54,7 @@
 @class S4HttpConnection;
 
 
-
+// ================================== Protocols ========================================
 // ============================ S4HttpConnection Delegate =============================
 
 @protocol S4HttpConnectionDelegate <NSObject>

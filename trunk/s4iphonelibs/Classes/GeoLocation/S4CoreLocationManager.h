@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4CoreLocationManager.h
- * Module:		
+ * Module:		GeoLocation
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -44,6 +44,9 @@
 #import <CoreLocation/CLLocation.h>
 #import <CoreLocation/CLLocationManager.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
+
+
+// =================================== Defines =========================================
 
 
 
@@ -71,6 +74,8 @@ typedef enum
 
 
 
+
+// ================================== Protocols ========================================
 // ========================== S4CoreLocationManager Delegate ===========================
 
 @protocol S4CoreLocationMgrDelegate <NSObject>

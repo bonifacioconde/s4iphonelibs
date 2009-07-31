@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4NetUtilities.m
- * Module:		
+ * Module:		Network
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -43,6 +43,7 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 #import "S4NetUtilities.h"
+#import "S4CommonDefines.h"
 
 
 // ================================== Defines ==========================================
@@ -58,8 +59,15 @@
 
 
 
+// ============================= Forward Declarations ==================================
 
-// =========================== Begin Class S4NetUtilities (PrivateImpl) ===========================
+
+
+// ================================== Inlines ==========================================
+
+
+
+// =========================== Begin Class S4NetUtilities (PrivateImpl) ======================
 
 @interface S4NetUtilities (PrivateImpl)
 
@@ -92,7 +100,8 @@
 
 
 
-// ================================== Begin Class S4NetUtilities ==================================
+
+// ============================== Begin Class S4NetUtilities =========================
 
 @implementation S4NetUtilities
 

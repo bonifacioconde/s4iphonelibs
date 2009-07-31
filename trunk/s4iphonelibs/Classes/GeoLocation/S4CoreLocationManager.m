@@ -26,7 +26,7 @@
 /* ***** FILE BLOCK ******
  *
  * Name:		S4CoreLocationManager.m
- * Module:		
+ * Module:		GeoLocation
  * Library:		S4 iPhone Libraries
  *
  * ***** FILE BLOCK *****/
@@ -36,6 +36,7 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 #import "S4CoreLocationManager.h"
+#import "S4CommonDefines.h"
 
 
 // ================================== Defines ==========================================
@@ -51,6 +52,13 @@
 
 // holds the singleton
 static S4CoreLocationManager				*g_clsInstance = nil;
+
+
+// ============================= Forward Declarations ==================================
+
+
+
+// ================================== Inlines ==========================================
 
 
 
@@ -86,6 +94,7 @@ static S4CoreLocationManager				*g_clsInstance = nil;
 
 
 
+
 // ==================== Begin Class S4CoreLocationManager ====================
 
 @implementation S4CoreLocationManager
@@ -93,6 +102,8 @@ static S4CoreLocationManager				*g_clsInstance = nil;
 @synthesize m_CLLocationManager;
 @synthesize m_delegate;
 
+
+///////////////////////////////////// START SINGLETON METHODS /////////////////////////////////////
 
 //============================================================================
 //	S4CoreLocationManager :: getInstance
@@ -187,6 +198,7 @@ static S4CoreLocationManager				*g_clsInstance = nil;
 }
 
 
+///////////////////////////////////// INSTANCE METHODS /////////////////////////////////////
 
 /**************************************************  Location Methods ****************************************************/
 
